@@ -3,7 +3,7 @@ import { BACKEND_API_URL } from "@/lib/env";
 export async function POST(request: Request) {
   const body = await request.json();
 
-  const response = await fetch(`${BACKEND_API_URL}/api/chat`, {
+  const response = await fetch(`${BACKEND_API_URL}/api/chat/ask`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
