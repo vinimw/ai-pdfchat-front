@@ -1,17 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f4efe6;
-  --foreground: #1f2937;
-  --muted: #6b7280;
-  --surface: rgba(255, 252, 247, 0.84);
-  --surface-strong: #fffdf8;
-  --border: rgba(148, 163, 184, 0.24);
-  --shadow: 0 24px 60px rgba(148, 163, 184, 0.18);
+  --background: #f5f1e8;
+  --foreground: #243447;
+  --muted: #66758a;
+  --surface: rgba(255, 255, 255, 0.76);
+  --surface-strong: rgba(255, 255, 255, 0.94);
+  --border: rgba(148, 163, 184, 0.18);
+  --shadow: 0 22px 52px rgba(120, 136, 160, 0.14);
   --hero: linear-gradient(
     135deg,
-    rgba(217, 119, 6, 0.14),
-    rgba(14, 116, 144, 0.14)
+    rgba(194, 151, 71, 0.12),
+    rgba(99, 145, 173, 0.12)
+  );
+  --panel-soft: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.96),
+    rgba(250, 247, 241, 0.9)
   );
 }
 
@@ -36,15 +41,15 @@ body {
   background:
     radial-gradient(
       circle at top left,
-      rgba(245, 158, 11, 0.16),
+      rgba(194, 151, 71, 0.16),
       transparent 24%
     ),
     radial-gradient(
       circle at top right,
-      rgba(14, 116, 144, 0.14),
+      rgba(99, 145, 173, 0.14),
       transparent 22%
     ),
-    linear-gradient(180deg, #fcfaf5 0%, var(--background) 48%, #efe8dc 100%);
+    linear-gradient(180deg, #fcfaf6 0%, var(--background) 48%, #eee7dc 100%);
   color: var(--foreground);
   font-family: var(--font-sans);
 }
@@ -76,6 +81,12 @@ input {
   border: 1px solid var(--border);
   background: var(--surface-strong);
   box-shadow: 0 16px 40px rgba(148, 163, 184, 0.12);
+}
+
+.app-panel-soft {
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: var(--panel-soft);
+  box-shadow: 0 14px 34px rgba(148, 163, 184, 0.1);
 }
 
 .app-grid {

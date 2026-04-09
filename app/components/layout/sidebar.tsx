@@ -1,5 +1,6 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -10,6 +11,11 @@ const navItems = [
 
 export function Sidebar() {
   const pathname = usePathname();
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false
+  );
 
   return (
     <aside className="app-surface relative w-full border-b px-4 py-4 md:sticky md:top-0 md:flex md:h-screen md:w-72 md:flex-col md:border-b-0 md:border-r md:px-5 md:py-5">
@@ -33,9 +39,10 @@ export function Sidebar() {
         <ul className="space-y-2">
           {navItems.map((item) => {
             const isActive =
-              item.href === "/"
+              mounted &&
+              (item.href === "/"
                 ? pathname === item.href
-                : pathname.startsWith(item.href);
+                : pathname.startsWith(item.href));
 
             return (
               <li key={item.href}>

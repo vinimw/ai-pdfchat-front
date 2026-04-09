@@ -63,7 +63,7 @@ export function UploadForm() {
         </div>
       </div>
 
-      <div className="rounded-[24px] border border-dashed border-slate-300 bg-white/65 p-5">
+      <div className="app-panel-soft rounded-[24px] p-6">
         <label className="mb-3 block text-sm font-medium text-slate-800">
           Select a PDF file
         </label>
@@ -71,9 +71,9 @@ export function UploadForm() {
           type="file"
           accept="application/pdf"
           onChange={(event) => setFile(event.target.files?.[0] ?? null)}
-          className="block w-full text-sm text-slate-600 file:mr-4 file:rounded-2xl file:border-0 file:bg-slate-900 file:px-4 file:py-2.5 file:font-medium file:text-white hover:file:bg-slate-800"
+          className="block w-full text-sm text-slate-600 file:mr-4 file:rounded-2xl file:border file:border-[#c7d2de] file:bg-white file:px-4 file:py-2.5 file:font-medium file:text-slate-800 hover:file:border-[#9fb6c9] hover:file:bg-slate-50"
         />
-        <p className="mt-3 text-sm text-slate-500">
+        <p className="mt-3 text-sm leading-6 text-slate-500">
           {file
             ? `Ready to upload: ${file.name}`
             : "PDF only. The file will be processed and indexed for chat."}
@@ -89,7 +89,7 @@ export function UploadForm() {
       <button
         type="submit"
         disabled={loading}
-        className="inline-flex items-center rounded-2xl bg-slate-900 px-5 py-3 text-sm font-medium text-white shadow-lg shadow-slate-900/20 hover:-translate-y-0.5 hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
+        className="inline-flex items-center rounded-2xl bg-[#315c7a] px-5 py-3 text-sm font-medium text-white shadow-lg shadow-[#315c7a]/20 hover:-translate-y-0.5 hover:bg-[#284d67] disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
       >
         {loading ? "Uploading..." : "Upload"}
       </button>
