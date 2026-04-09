@@ -1,16 +1,15 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { askDocumentQuestion } from "@/lib/api/client/chat";
 import { SourceList } from "./source-list";
 import type { ChatSource } from "@/lib/api/schemas/chat";
-
-type ChatMessage = {
-  id: string;
-  role: "user" | "assistant";
-  content: string;
-  sources?: ChatSource[];
-};
+import {
+  clearMessages,
+  loadMessages,
+  saveMessages,
+  type StoredChatMessage,
+} from "@/lib/chat-storage";
 
 type Props = {
   documentId: string;
@@ -18,19 +17,43 @@ type Props = {
 
 export function ChatPanel({ documentId }: Props) {
   const [question, setQuestion] = useState("");
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
-  const [currentSources, setCurrentSources] = useState<ChatSource[]>([]);
+  const [messages, setMessages] = useState<StoredChatMessage[]>([]);
+  const [hydratedDocumentId, setHydratedDocumentId] = useState<string | null>(
+    null
+  );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const storedMessages = loadMessages(documentId);
+    setMessages(storedMessages);
+    setError(null);
+    setHydratedDocumentId(documentId);
+  }, [documentId]);
+
+  useEffect(() => {
+    if (hydratedDocumentId !== documentId) return;
+    saveMessages(documentId, messages);
+  }, [documentId, hydratedDocumentId, messages]);
+
+  const currentSources = useMemo<ChatSource[]>(() => {
+    const assistantMessages = messages.filter(
+      (message) => message.role === "assistant"
+    );
+
+    const latestAssistantMessage =
+      assistantMessages[assistantMessages.length - 1];
+
+    return latestAssistantMessage?.sources ?? [];
+  }, [messages]);
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const trimmedQuestion = question.trim();
+    if (!trimmedQuestion || loading) return;
 
-    if (!trimmedQuestion) return;
-
-    const userMessage: ChatMessage = {
+    const userMessage: StoredChatMessage = {
       id: crypto.randomUUID(),
       role: "user",
       content: trimmedQuestion,
@@ -44,7 +67,7 @@ export function ChatPanel({ documentId }: Props) {
     try {
       const data = await askDocumentQuestion(documentId, trimmedQuestion);
 
-      const assistantMessage: ChatMessage = {
+      const assistantMessage: StoredChatMessage = {
         id: crypto.randomUUID(),
         role: "assistant",
         content: data.answer,
@@ -52,12 +75,17 @@ export function ChatPanel({ documentId }: Props) {
       };
 
       setMessages((prev) => [...prev, assistantMessage]);
-      setCurrentSources(data.sources);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unexpected error.");
     } finally {
       setLoading(false);
     }
+  }
+
+  function handleClearHistory() {
+    setMessages([]);
+    setError(null);
+    clearMessages(documentId);
   }
 
   return (
@@ -127,11 +155,7 @@ export function ChatPanel({ documentId }: Props) {
 
               <button
                 type="button"
-                onClick={() => {
-                  setMessages([]);
-                  setCurrentSources([]);
-                  setError(null);
-                }}
+                onClick={handleClearHistory}
                 className="rounded-xl border px-4 py-2 text-sm"
               >
                 Clear history
