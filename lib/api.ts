@@ -1,7 +1,8 @@
+import { BACKEND_API_URL } from "@/lib/env";
 import type { ChatResponse, DocumentItem, DocumentsResponse } from "./types";
 
 export async function getDocuments(): Promise<DocumentItem[]> {
-  const response = await fetch("http://localhost:3000/api/documents", {
+  const response = await fetch(`${BACKEND_API_URL}/api/documents`, {
     method: "GET",
     cache: "no-store",
   });
@@ -23,7 +24,7 @@ export async function askDocumentQuestion(
   documentId: string,
   question: string
 ): Promise<ChatResponse> {
-  const response = await fetch("http://localhost:3000/api/chat", {
+  const response = await fetch(`${BACKEND_API_URL}/api/chat`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
