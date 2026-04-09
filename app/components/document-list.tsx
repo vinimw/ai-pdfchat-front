@@ -1,5 +1,5 @@
 import Link from "next/link";
-import type { DocumentItem } from "@/lib/types";
+import type { DocumentItem } from "@/lib/api/schemas/document";
 
 type Props = {
   documents: DocumentItem[];
@@ -8,7 +8,7 @@ type Props = {
 export function DocumentList({ documents }: Props) {
   if (documents.length === 0) {
     return (
-      <div className="rounded-2xl border p-6">
+      <div className="rounded-2xl border border-dashed p-6">
         <p className="text-sm text-zinc-600">
           No documents uploaded yet.
         </p>
@@ -24,7 +24,7 @@ export function DocumentList({ documents }: Props) {
           href={`/documents/${document.document_id}`}
           className="block rounded-2xl border p-5 transition hover:bg-zinc-50"
         >
-          <div className="flex items-start justify-between gap-4">
+          <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
             <div>
               <h2 className="font-semibold">{document.filename}</h2>
               <p className="mt-1 text-sm text-zinc-500">
@@ -32,7 +32,7 @@ export function DocumentList({ documents }: Props) {
               </p>
             </div>
 
-            <div className="text-right text-sm text-zinc-500">
+            <div className="text-sm text-zinc-500">
               {typeof document.pages === "number" ? (
                 <p>{document.pages} pages</p>
               ) : null}

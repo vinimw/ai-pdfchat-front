@@ -1,14 +1,32 @@
-import { UploadForm } from "@/app/components/upload-form";
+import Link from "next/link";
+import { Header } from "@/app/components/layout/header";
 
 export default function HomePage() {
   return (
-    <main className="mx-auto max-w-3xl p-8">
-      <h1 className="mb-2 text-3xl font-semibold">AI PDF Chat</h1>
-      <p className="mb-6 text-sm text-zinc-600">
-        Upload a PDF and start asking grounded questions.
-      </p>
+    <>
+      <Header
+        title="Home"
+        subtitle="Upload PDFs, explore documents, and ask grounded questions."
+      />
 
-      <UploadForm />
-    </main>
+      <main className="p-6">
+        <section className="mx-auto max-w-4xl rounded-2xl border bg-white p-8">
+          <h2 className="text-3xl font-semibold">Welcome to AI PDF Chat</h2>
+          <p className="mt-3 max-w-2xl text-zinc-600">
+            This app lets you upload documents, process their content, and ask
+            questions with answers grounded in source excerpts.
+          </p>
+
+          <div className="mt-6">
+            <Link
+              href="/documents"
+              className="inline-block rounded-xl border px-4 py-2"
+            >
+              Go to documents
+            </Link>
+          </div>
+        </section>
+      </main>
+    </>
   );
 }
