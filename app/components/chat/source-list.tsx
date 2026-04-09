@@ -7,7 +7,7 @@ type Props = {
 export function SourceList({ sources }: Props) {
   if (sources.length === 0) {
     return (
-      <div className="app-panel-soft rounded-[24px] p-5">
+      <div className="app-panel-soft rounded-[16px] p-5">
         <p className="text-sm font-medium text-slate-700">No sources found.</p>
         <p className="mt-2 text-sm leading-6 text-slate-500">
           When the assistant answers with retrieved context, the supporting
@@ -22,7 +22,7 @@ export function SourceList({ sources }: Props) {
       {sources.map((source, index) => (
         <div
           key={`${source.chunk_id ?? "source"}-${index}`}
-          className="rounded-[22px] border border-slate-200 bg-white/96 p-4"
+          className="rounded-[14px] border border-slate-200 bg-white/96 p-4"
         >
           <p className="text-sm font-semibold text-slate-800">
             {source.document_name ?? "Document"}

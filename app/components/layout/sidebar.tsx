@@ -1,6 +1,5 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -11,15 +10,10 @@ const navItems = [
 
 export function Sidebar() {
   const pathname = usePathname();
-  const mounted = useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false
-  );
 
   return (
     <aside className="app-surface relative w-full border-b px-4 py-4 md:sticky md:top-0 md:flex md:h-screen md:w-72 md:flex-col md:border-b-0 md:border-r md:px-5 md:py-5">
-      <div className="app-hero rounded-[28px] p-6 text-slate-900">
+      <div className="app-hero rounded-[18px] p-6 text-slate-900">
         <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-600">
           AI PDF Chat
         </p>
@@ -39,17 +33,16 @@ export function Sidebar() {
         <ul className="space-y-2">
           {navItems.map((item) => {
             const isActive =
-              mounted &&
-              (item.href === "/"
+              item.href === "/"
                 ? pathname === item.href
-                : pathname.startsWith(item.href));
+                : pathname.startsWith(item.href);
 
             return (
               <li key={item.href}>
                 <Link
                   href={item.href}
                   className={[
-                    "group mt-2 flex items-center justify-between rounded-2xl px-4 py-3 text-sm font-medium transition",
+                    "group mt-2 flex items-center justify-between rounded-xl px-4 py-3 text-sm font-medium transition",
                     isActive
                       ? "bg-slate-900 text-white shadow-lg shadow-slate-900/15"
                       : "text-slate-700 hover:bg-white/70 hover:text-slate-900",
@@ -71,7 +64,7 @@ export function Sidebar() {
         </ul>
       </nav>
 
-      <div className="app-card mt-4 rounded-[24px] p-4 text-sm text-slate-600">
+      <div className="app-card mt-4 rounded-[16px] p-4 text-sm text-slate-600">
         <p className="font-medium text-slate-900">Workspace ready</p>
         <p className="mt-2 leading-6">
           Use the documents area to upload files and open a chat session with

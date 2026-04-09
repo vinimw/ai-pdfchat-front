@@ -22,11 +22,11 @@ export default async function DocumentPage({ params }: Props) {
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <Link
             href="/documents"
-            className="inline-flex w-fit items-center rounded-2xl border border-slate-300/70 bg-white/70 px-4 py-2 text-sm font-medium text-slate-700 hover:border-slate-400 hover:bg-white"
+            className="inline-flex w-fit items-center rounded-xl border border-slate-300/70 bg-white/70 px-4 py-2 text-sm font-medium text-slate-700 hover:border-slate-400 hover:bg-white"
           >
             Back to documents
           </Link>
-          <div className="rounded-2xl border border-slate-300/70 bg-white/70 px-4 py-2 text-sm text-slate-600">
+          <div className="rounded-xl border border-slate-300/70 bg-white/70 px-4 py-2 text-sm text-slate-600">
             Document ID: <span className="font-medium text-slate-900">{id}</span>
           </div>
         </div>

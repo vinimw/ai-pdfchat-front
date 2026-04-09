@@ -6,7 +6,7 @@ type Props = {
 export function Header({ title, subtitle }: Props) {
   return (
     <header className="px-5 pt-5 md:px-8 md:pt-8">
-      <div className="app-surface rounded-[28px] px-6 py-6 md:px-8 md:py-7">
+      <div className="app-surface rounded-[18px] px-6 py-6 md:px-8 md:py-7">
         {title ? (
           <p className="text-xs font-semibold uppercase tracking-[0.28em] text-slate-500">
             Workspace
