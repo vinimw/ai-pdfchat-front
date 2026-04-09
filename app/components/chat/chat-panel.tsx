@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { askDocumentQuestion } from "@/lib/api/client/chat";
 import { SourceList } from "./source-list";
-import type { ChatSource } from "@/lib/types";
+import type { ChatSource } from "@/lib/api/schemas/chat";
 
 type Props = {
   documentId: string;
@@ -24,25 +25,10 @@ export function ChatPanel({ documentId }: Props) {
     setError(null);
 
     try {
-      const response = await fetch("/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          document_id: documentId,
-          question,
-        }),
-      });
+      const data = await askDocumentQuestion(documentId, question);
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data?.message ?? "Failed to get answer.");
-      }
-
-      setAnswer(data.answer ?? "");
-      setSources(data.sources ?? []);
+      setAnswer(data.answer);
+      setSources(data.sources);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Unexpected error.");
     } finally {
@@ -52,7 +38,7 @@ export function ChatPanel({ documentId }: Props) {
 
   return (
     <div className="space-y-6">
-      <form onSubmit={handleSubmit} className="rounded-2xl border p-6 space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4 rounded-2xl border p-6">
         <div>
           <label className="mb-2 block text-sm font-medium">
             Ask a question about this document
