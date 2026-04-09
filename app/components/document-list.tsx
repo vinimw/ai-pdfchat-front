@@ -8,7 +8,7 @@ type Props = {
 export function DocumentList({ documents }: Props) {
   if (documents.length === 0) {
     return (
-      <div className="rounded-[24px] border border-dashed border-slate-300 bg-white/55 p-8 text-center">
+      <div className="rounded-[16px] border border-dashed border-slate-300 bg-white/55 p-8 text-center">
         <p className="text-sm font-medium text-slate-700">
           No documents uploaded yet.
         </p>
@@ -25,7 +25,7 @@ export function DocumentList({ documents }: Props) {
         <Link
           key={document.document_id}
           href={`/documents/${document.document_id}`}
-          className="app-card group block rounded-[26px] p-5 transition hover:-translate-y-1 hover:border-slate-400/60 hover:bg-white"
+          className="app-card group block rounded-[16px] p-5 transition hover:-translate-y-1 hover:border-slate-400/60 hover:bg-white"
         >
           <div className="flex flex-col gap-5">
             <div>
@@ -42,7 +42,7 @@ export function DocumentList({ documents }: Props) {
 
             <div className="grid grid-cols-2 gap-3 text-sm text-slate-600">
               {typeof document.pages === "number" ? (
-                <div className="rounded-2xl bg-slate-100/80 p-3">
+                <div className="rounded-xl bg-slate-100/80 p-3">
                   <p className="text-xs uppercase tracking-[0.18em] text-slate-500">
                     Pages
                   </p>
@@ -51,7 +51,7 @@ export function DocumentList({ documents }: Props) {
               ) : null}
 
               {typeof document.characters === "number" ? (
-                <div className="rounded-2xl bg-slate-100/80 p-3">
+                <div className="rounded-xl bg-slate-100/80 p-3">
                   <p className="text-xs uppercase tracking-[0.18em] text-slate-500">
                     Chars
                   </p>
