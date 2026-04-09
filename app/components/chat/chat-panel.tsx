@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { askDocumentQuestion } from "@/lib/api/client/chat";
 import { SourceList } from "./source-list";
 import type { ChatSource } from "@/lib/api/schemas/chat";
@@ -23,6 +23,7 @@ export function ChatPanel({ documentId }: Props) {
   );
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const conversationRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const storedMessages = loadMessages(documentId);
@@ -35,6 +36,16 @@ export function ChatPanel({ documentId }: Props) {
     if (hydratedDocumentId !== documentId) return;
     saveMessages(documentId, messages);
   }, [documentId, hydratedDocumentId, messages]);
+
+  useEffect(() => {
+    const container = conversationRef.current;
+    if (!container) return;
+
+    container.scrollTo({
+      top: container.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [documentId, loading, messages]);
 
   const currentSources = useMemo<ChatSource[]>(() => {
     const assistantMessages = messages.filter(
@@ -106,7 +117,10 @@ export function ChatPanel({ documentId }: Props) {
             </p>
           </div>
 
-          <div className="app-scrollbar max-h-[58vh] space-y-4 overflow-y-auto pr-1">
+          <div
+            ref={conversationRef}
+            className="app-scrollbar max-h-[58vh] space-y-4 overflow-y-auto pr-1"
+          >
             {messages.length === 0 ? (
               <div className="app-panel-soft rounded-[24px] p-6 text-sm leading-6 text-slate-500">
                 No messages yet. Ask your first question about this document to
