@@ -16,6 +16,7 @@ type Props = {
 };
 
 export function ChatPanel({ documentId }: Props) {
+  const textareaId = `chat-question-${documentId}`;
   const [question, setQuestion] = useState("");
   const [messages, setMessages] = useState<StoredChatMessage[]>([]);
   const [hydratedDocumentId, setHydratedDocumentId] = useState<string | null>(
@@ -158,10 +159,14 @@ export function ChatPanel({ documentId }: Props) {
         <section className="app-surface rounded-[18px] p-6 md:p-7">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-slate-700">
+              <label
+                htmlFor={textareaId}
+                className="block text-sm font-medium text-slate-700"
+              >
                 Ask a question about this document
               </label>
               <textarea
+                id={textareaId}
                 value={question}
                 onChange={(event) => setQuestion(event.target.value)}
                 placeholder="Example: What is the main topic of this document?"
