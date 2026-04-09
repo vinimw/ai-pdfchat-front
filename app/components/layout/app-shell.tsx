@@ -7,10 +7,10 @@ type Props = {
 
 export function AppShell({ children }: Props) {
   return (
-    <div className="min-h-screen bg-zinc-50 md:flex">
+    <div className="app-grid min-h-screen md:flex">
       <Sidebar />
 
-      <div className="flex-1">
+      <div className="relative flex-1">
         {children}
       </div>
     </div>

@@ -13,7 +13,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      style={{ scrollBehavior: "auto" }}
+    >
       <body>
         <AppShell>{children}</AppShell>
       </body>

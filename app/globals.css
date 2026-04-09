@@ -1,26 +1,131 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f5f1e8;
+  --foreground: #243447;
+  --muted: #66758a;
+  --surface: rgba(255, 255, 255, 0.76);
+  --surface-strong: rgba(255, 255, 255, 0.94);
+  --border: rgba(148, 163, 184, 0.18);
+  --shadow: 0 22px 52px rgba(120, 136, 160, 0.14);
+  --hero: linear-gradient(
+    135deg,
+    rgba(194, 151, 71, 0.12),
+    rgba(99, 145, 173, 0.12)
+  );
+  --panel-soft: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.96),
+    rgba(250, 247, 241, 0.9)
+  );
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: "Avenir Next", "Segoe UI", "Noto Sans", sans-serif;
+  --font-mono: "SFMono-Regular", "SF Mono", "Cascadia Code", "JetBrains Mono",
+    monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  scroll-behavior: auto !important;
 }
 
 body {
-  background: var(--background);
+  min-height: 100vh;
+  background:
+    radial-gradient(
+      circle at top left,
+      rgba(194, 151, 71, 0.16),
+      transparent 24%
+    ),
+    radial-gradient(
+      circle at top right,
+      rgba(99, 145, 173, 0.14),
+      transparent 22%
+    ),
+    linear-gradient(180deg, #fcfaf6 0%, var(--background) 48%, #eee7dc 100%);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+}
+
+a,
+button,
+textarea,
+input {
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+::selection {
+  background: rgba(14, 116, 144, 0.18);
+}
+
+.app-surface {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  backdrop-filter: blur(18px);
+  box-shadow: var(--shadow);
+}
+
+.app-card {
+  border: 1px solid var(--border);
+  background: var(--surface-strong);
+  box-shadow: 0 16px 40px rgba(148, 163, 184, 0.12);
+}
+
+.app-panel-soft {
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: var(--panel-soft);
+  box-shadow: 0 14px 34px rgba(148, 163, 184, 0.1);
+}
+
+.app-grid {
+  position: relative;
+}
+
+.app-grid::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.28), transparent 82%);
+}
+
+.app-hero {
+  background: var(--hero);
+}
+
+.app-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(148, 163, 184, 0.65) transparent;
+}
+
+.app-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.app-scrollbar::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;
+  border-radius: 999px;
+  background: rgba(148, 163, 184, 0.65);
+  background-clip: padding-box;
+}
+
+.app-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
 }
