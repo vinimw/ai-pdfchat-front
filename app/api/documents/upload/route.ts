@@ -3,28 +3,35 @@ import { BACKEND_API_URL } from "@/lib/env";
 export async function POST(request: Request) {
   const formData = await request.formData();
 
+  const file = formData.get("file");
+
+  if (!(file instanceof File)) {
+    return Response.json({ message: "File is required." }, { status: 400 });
+  }
+
+  const upstreamFormData = new FormData();
+  upstreamFormData.append("file", file);
+
   const response = await fetch(`${BACKEND_API_URL}/api/documents/upload`, {
     method: "POST",
-    body: formData,
+    body: upstreamFormData,
     cache: "no-store",
   });
 
   const contentType = response.headers.get("content-type") ?? "";
+  const responseData = contentType.includes("application/json")
+    ? await response.json().catch(() => null)
+    : await response.text().catch(() => null);
 
   if (!response.ok) {
-    const errorBody = contentType.includes("application/json")
-      ? await response.json()
-      : await response.text();
-
     return Response.json(
-      { message: "Upload failed", details: errorBody },
+      {
+        message: "Upload failed.",
+        details: responseData,
+      },
       { status: response.status }
     );
   }
 
-  const data = contentType.includes("application/json")
-    ? await response.json()
-    : null;
-
-  return Response.json(data, { status: 200 });
+  return Response.json(responseData, { status: 200 });
 }
