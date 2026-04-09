@@ -1,4 +1,4 @@
-import { ChatPanel } from "@/app/components/chat-panel";
+import { ChatPanel } from "@/app/components/chat/chat-panel";
 
 type Props = {
   params: Promise<{ id: string }>;

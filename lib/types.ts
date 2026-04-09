@@ -6,6 +6,10 @@ export type DocumentItem = {
   characters?: number;
 };
 
+export type DocumentsResponse = {
+  items: DocumentItem[];
+};
+
 export type UploadDocumentResponse = {
   document_id: string;
   filename: string;
