@@ -37,6 +37,20 @@ npm run dev
 npm run build
 ```
 
+### Storybook
+
+```bash
+npm run storybook
+```
+
+Abre a biblioteca de componentes em `http://localhost:6006` com documentacao automatica e exemplos dos estados principais da interface.
+
+### Build estatico do Storybook
+
+```bash
+npm run build-storybook
+```
+
 ### Rodar a aplicacao em producao
 
 ```bash
@@ -76,3 +90,15 @@ npm run test:watch
 ```bash
 npm run test:coverage
 ```
+
+## Componentes documentados
+
+O Storybook inclui historias com `autodocs` para os componentes principais:
+
+- `AppShell`
+- `Header`
+- `Sidebar`
+- `DocumentList`
+- `UploadForm`
+- `ChatPanel`
+- `SourceList`
